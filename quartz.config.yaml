@@ -214,7 +214,8 @@ plugins:
   - source: github:quartz-community/footer
     enabled: true
     options:
-      links: '{"© 2026 보험설계사 위키": "https://daviz153.github.io/blog"}'
+      links: '{"CRMBiz 코치": "https://crmbiz.kr", "Threads":
+        "https://crmbiz.kr/threads"}'
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer
