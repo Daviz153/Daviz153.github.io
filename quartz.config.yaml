@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
   pageTitle: 보험설계사 위키
-  pageTitleSuffix: ""
+  pageTitleSuffix: "| 보험설계사 위키"
   enableSPA: true
   enablePopovers: true
   analytics:
