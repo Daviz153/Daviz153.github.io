@@ -150,7 +150,7 @@ plugins:
     layout:
       position: left
       priority: 50
-      display: desktop-only
+      display: all
     options:
       title: 카테고리
   - source: github:quartz-community/graph
