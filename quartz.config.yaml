@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: ko-KR
-  baseUrl: Daviz153.github.io/blog
+  baseUrl: Daviz153.github.io
   ignorePatterns:
     - private
     - templates
