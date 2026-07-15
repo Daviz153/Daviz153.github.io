@@ -1,6 +1,5 @@
 ---
-title: Welcome to Quartz
+title: 보험설계사 위키
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+보험설계사를 위한 지식 아카이브입니다.
