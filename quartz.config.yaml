@@ -257,6 +257,7 @@ plugins:
     order: 50
     options:
       theme: tokyo-night
+      mode: both
   - source: github:quartz-community/obsidian-plugin-excalidraw
     enabled: true
     order: 50
