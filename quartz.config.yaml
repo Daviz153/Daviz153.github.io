@@ -254,11 +254,11 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-      ref: master
+      ref: main
     enabled: true
     order: 50
     options:
-      theme: dracula-plus
+      theme: ayu-dark
   - source: github:quartz-community/obsidian-plugin-excalidraw
     enabled: true
     order: 50
