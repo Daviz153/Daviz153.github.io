@@ -73,7 +73,7 @@ plugins:
     layout:
       position: right
       priority: 30
-      display: desktop-only
+      display: all
     options: {}
   - source: github:quartz-community/crawl-links
     enabled: true
@@ -172,7 +172,7 @@ plugins:
     layout:
       position: right
       priority: 50
-      display: desktop-only
+      display: all
   - source: github:quartz-community/article-title
     enabled: true
     layout:
