@@ -261,11 +261,11 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-      ref: master
+      ref: main
     enabled: true
     order: 50
     options:
-      theme: flexoki
+      theme: ayu-dark
 layout:
   groups:
     toolbar:
