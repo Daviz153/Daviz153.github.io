@@ -73,6 +73,8 @@ plugins:
     layout:
       position: right
       priority: 30
+      display: desktop-only
+    options: {}
   - source: github:quartz-community/crawl-links
     enabled: true
     options:
@@ -170,6 +172,7 @@ plugins:
     layout:
       position: right
       priority: 50
+      display: desktop-only
   - source: github:quartz-community/article-title
     enabled: true
     layout:
@@ -264,7 +267,7 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-      ref: master
+      ref: main
     enabled: true
     order: 50
     options:
