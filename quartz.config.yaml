@@ -258,15 +258,6 @@ plugins:
       enableInteraction: true
       darkMode: auto
       exportPadding: 20
-  - source:
-      name: quartz-themes
-      repo: github:saberzero1/quartz-themes
-      subdir: plugin
-      ref: master
-    enabled: true
-    order: 50
-    options:
-      theme: ayu-dark
 layout:
   groups:
     toolbar:
