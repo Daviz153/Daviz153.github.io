@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: Daviz153.github.io
+  baseUrl: Daviz153.github.io/blog
   ignorePatterns:
     - private
     - templates
