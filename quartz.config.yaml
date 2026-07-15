@@ -147,6 +147,8 @@ plugins:
     layout:
       position: left
       priority: 50
+    options:
+      title: 카테고리
   - source: github:quartz-community/graph
     enabled: true
     layout:
