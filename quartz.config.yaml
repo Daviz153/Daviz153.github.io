@@ -261,7 +261,7 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-      ref: main
+      ref: master
     enabled: true
     order: 50
     options:
