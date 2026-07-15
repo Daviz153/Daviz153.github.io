@@ -257,6 +257,13 @@ plugins:
     order: 50
     options:
       theme: dracula-plus
+  - source: github:quartz-community/obsidian-plugin-excalidraw
+    enabled: true
+    order: 50
+    options:
+      enableInteraction: true
+      darkMode: auto
+      exportPadding: 20
 layout:
   groups:
     toolbar:
