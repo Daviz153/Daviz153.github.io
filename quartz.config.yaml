@@ -258,7 +258,7 @@ plugins:
     enabled: true
     order: 50
     options:
-      theme: dark-knight
+      theme: dracula-plus
   - source: github:quartz-community/obsidian-plugin-excalidraw
     enabled: true
     order: 50
