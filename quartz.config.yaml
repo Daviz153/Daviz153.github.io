@@ -148,6 +148,7 @@ plugins:
     layout:
       position: left
       priority: 50
+      display: desktop-only
     options:
       title: 카테고리
   - source: github:quartz-community/graph
@@ -263,11 +264,11 @@ plugins:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-      ref: master
+      ref: main
     enabled: true
     order: 50
     options:
-      theme: ayu-mirage
+      theme: ayu-dark
 layout:
   groups:
     toolbar:
