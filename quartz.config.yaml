@@ -100,6 +100,7 @@ plugins:
     order: 92
   - source: github:quartz-community/fonts
     enabled: true
+    options: {}
   - source: github:quartz-community/remove-draft
     enabled: true
   - source: github:quartz-community/explicit-publish
@@ -258,6 +259,15 @@ plugins:
       enableInteraction: true
       darkMode: auto
       exportPadding: 20
+  - source:
+      name: quartz-themes
+      repo: github:saberzero1/quartz-themes
+      subdir: plugin
+      ref: main
+    enabled: true
+    order: 50
+    options:
+      theme: ayu-dark
 layout:
   groups:
     toolbar:
