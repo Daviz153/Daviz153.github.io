@@ -214,9 +214,7 @@ plugins:
   - source: github:quartz-community/footer
     enabled: true
     options:
-      links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+      links: '{"© 2026 보험설계사 위키": "https://daviz153.github.io/blog"}'
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer
