@@ -214,7 +214,7 @@ plugins:
   - source: github:quartz-community/footer
     enabled: true
     options:
-      links: '{"test":"https://example.com"}'
+      links: "{}"
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer
