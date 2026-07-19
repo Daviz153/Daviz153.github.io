@@ -88,6 +88,10 @@ plugins:
     options:
       renderEngine: katex
     order: 80
+  - source: ./plugins-local/ad-placeholder
+    enabled: true
+    options: {}
+    order: 95
   - source: github:quartz-community/citations
     enabled: false
     order: 85
