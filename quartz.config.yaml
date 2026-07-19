@@ -235,7 +235,6 @@ plugins:
     options:
       links:
         다비즈 코치: https://crmbiz.kr
-        Threads: https://crmbiz.kr/threads
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer

@@ -12,8 +12,33 @@
 .toc-content.overflow {
   @for $i from 0 through 6 {
     li.depth-#{$i} {
-      padding-left: calc(1.25rem * #{$i}) !important;
+      padding-left: calc(1.25rem * #{$i} + 0.6rem) !important;
       font-size: max(0.75rem, calc(1rem - #{$i} * 0.125rem));
+      border-left: 2px solid var(--lightgray);
     }
+  }
+
+  // Depth-0 = H2: bold, full-color, and a stronger accent rail so the
+  // top-level structure is readable at a glance without following indent
+  // width alone (the sidebar is narrow enough that indentation can be
+  // hard to judge on wrapped multi-line entries).
+  li.depth-0 {
+    font-weight: 700;
+    border-left-color: var(--secondary);
+    margin-top: 0.4rem;
+
+    > a {
+      color: var(--dark) !important;
+    }
+  }
+
+  li.depth-0:first-child {
+    margin-top: 0;
+  }
+
+  // Depth-1+ = H3 and deeper: muted color so they visually recede behind
+  // their parent H2.
+  li:not(.depth-0) > a {
+    color: var(--gray) !important;
   }
 }
