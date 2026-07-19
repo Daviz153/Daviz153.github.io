@@ -42,3 +42,18 @@
     color: var(--gray) !important;
   }
 }
+
+// The base plugin collapses the TOC by squeezing the whole `.toc` flex
+// container down to a fixed 1.4rem and relying on overflow-y:hidden to
+// hide the list — but the header button's real height is taller than
+// 1.4rem, so the button itself gets clipped and "목차" renders as a
+// sliver of its top edge. Hide the list directly instead, and let the
+// container size itself naturally so the header is never clipped.
+.toc-content.collapsed {
+  display: none;
+}
+
+.toc:has(button.toc-header.collapsed) {
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+}
