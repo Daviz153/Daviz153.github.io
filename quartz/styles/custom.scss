@@ -1,3 +1,19 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+// The "things" theme (quartz-themes plugin) ships an unscoped
+// `ul > li { padding-left: 0 }` reset that isn't wrapped in an @layer.
+// Unlayered rules always beat the table-of-contents plugin's
+// @layer-scoped `.depth-N` indentation, regardless of specificity, so the
+// TOC loses its indentation. Re-assert it here (also unlayered, so it can
+// compete), and add a font-size step-down per level so heading depth is
+// visually distinguishable at a glance.
+.toc-content.overflow {
+  @for $i from 0 through 6 {
+    li.depth-#{$i} {
+      padding-left: calc(1rem * #{$i}) !important;
+      font-size: calc(1rem - #{$i} * 0.05rem);
+    }
+  }
+}

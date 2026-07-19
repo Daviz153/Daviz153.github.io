@@ -1,0 +1,21 @@
+{
+  "name": "ad-placeholder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "quartz": {
+    "name": "ad-placeholder",
+    "displayName": "Ad Placeholder (Test)",
+    "description": "Marks where AdSense units will go, without loading any real ad code.",
+    "category": "transformer",
+    "version": "0.1.0",
+    "quartzVersion": ">=5.0.0",
+    "defaultOrder": 95,
+    "defaultEnabled": true,
+    "defaultOptions": {}
+  }
+}
