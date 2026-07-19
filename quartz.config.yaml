@@ -271,7 +271,7 @@ plugins:
     enabled: true
     order: 50
     options:
-      theme: things-3
+      theme: minimal
 layout:
   groups:
     toolbar:
