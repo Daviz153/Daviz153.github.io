@@ -57,3 +57,30 @@
   flex: 0 0 auto !important;
   overflow: visible !important;
 }
+
+// The "things" theme (quartz-themes plugin, templateCSS.ts) explicitly sets
+// `.page-title { display: none; }` under its own `max-width: 800px` media
+// query — a deliberate design choice in that theme's mobile layout that
+// removes the site title entirely. Override it back to visible, and since
+// `.sidebar.left` becomes a flex row on mobile (explorer toggle, title,
+// search, darkmode/reader-mode) with the explorer toggle fixed at 34px and
+// search refusing to shrink below `min-width: fit-content`, also protect
+// page-title from being crushed to 0 width by the remaining siblings.
+@media all and (max-width: 800px) {
+  .page-title {
+    display: block !important;
+    flex-shrink: 1;
+    flex-grow: 0;
+    min-width: 3rem;
+    max-width: 40%;
+    font-size: 1.15rem;
+    overflow: hidden;
+
+    > a {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
