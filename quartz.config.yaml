@@ -209,6 +209,13 @@ plugins:
       position: left
       priority: 35
       group: toolbar
+  - source: ./plugins-local/ad-banner-top
+    enabled: true
+    options: {}
+    layout:
+      position: beforeBody
+      priority: 1
+      condition: not-index
   - source: github:quartz-community/breadcrumbs
     enabled: true
     layout:

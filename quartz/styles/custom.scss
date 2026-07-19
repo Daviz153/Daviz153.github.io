@@ -12,8 +12,8 @@
 .toc-content.overflow {
   @for $i from 0 through 6 {
     li.depth-#{$i} {
-      padding-left: calc(1rem * #{$i}) !important;
-      font-size: calc(1rem - #{$i} * 0.05rem);
+      padding-left: calc(1.25rem * #{$i}) !important;
+      font-size: max(0.75rem, calc(1rem - #{$i} * 0.125rem));
     }
   }
 }

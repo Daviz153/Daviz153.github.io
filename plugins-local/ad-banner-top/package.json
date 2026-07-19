@@ -1,0 +1,29 @@
+{
+  "name": "ad-banner-top",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./components": "./dist/components/index.js"
+  },
+  "quartz": {
+    "name": "ad-banner-top",
+    "displayName": "Ad Banner Top (Test)",
+    "description": "Placeholder ad banner rendered above the breadcrumb, at the very top of the page.",
+    "category": "component",
+    "version": "0.1.0",
+    "quartzVersion": ">=5.0.0",
+    "defaultOrder": 96,
+    "defaultEnabled": true,
+    "defaultOptions": {},
+    "components": {
+      "AdBannerTop": {
+        "displayName": "Ad Banner Top",
+        "defaultPosition": "beforeBody",
+        "defaultPriority": 1
+      }
+    }
+  }
+}

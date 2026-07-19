@@ -22,8 +22,9 @@ function makePlaceholder() {
 }
 
 function rehypeAdPlaceholder() {
-  return (tree) => {
+  return (tree, file) => {
     if (!tree.children) return
+    if (file?.data?.slug === "index") return
 
     const h2Indices = findH2Indices(tree.children)
     const insertAfterIndices = []
@@ -36,9 +37,6 @@ function rehypeAdPlaceholder() {
       .forEach((pos) => {
         tree.children.splice(pos + 1, 0, makePlaceholder())
       })
-
-    // Below the title = very top of the article body.
-    tree.children.unshift(makePlaceholder())
   }
 }
 

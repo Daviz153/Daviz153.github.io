@@ -2,6 +2,7 @@
 publish: true
 created: 2026-07-16T12:01:06.707+09:00
 modified: 2026-07-16T12:02:18.586+09:00
+title: Welcome to 보험설계사 위키
 description: 보험설계사 지식 아카이브 입니다.
 ---
 
