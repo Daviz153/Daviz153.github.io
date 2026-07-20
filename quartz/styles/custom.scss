@@ -1,8 +1,8 @@
 @use "./variables.scss" as *;
 
-// Local typography trial (2026-07-19, not pushed yet — user wants to preview
-// before deciding): Pretendard font, 17px body text, 17px site title,
-// line-height 1.8 on body paragraphs (matches their old WordPress setting).
+// Local typography trial: Pretendard font, 18px body text, 22px desktop
+// site title (mobile shows the logo icon only), line-height 1.8 throughout
+// the article body (matches their old WordPress setting).
 // custom.scss's compiled output is appended after other component CSS, so a
 // CSS @import (which must be the first rule in its stylesheet) isn't usable
 // here — @font-face has no such positioning restriction, so load the CDN
@@ -52,7 +52,7 @@ $pretendardStack: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", s
 // the variable, and add the requested size/line-height at the same time.
 article p {
   font-family: #{$pretendardStack} !important;
-  font-size: 17px !important;
+  font-size: 18px !important;
   line-height: 1.8 !important;
   // Tried text-align: justify to close up the ragged right edge, but the
   // user found the resulting word-spacing looked worse than the normal
@@ -61,10 +61,17 @@ article p {
   word-break: keep-all;
 }
 
-// Font only here — the 17px size request turned out to be too small on
-// desktop (user feedback), so desktop gets a smaller-than-theme-default but
-// still-larger-than-mobile size (user asked to shrink text / grow the logo
-// for better balance); mobile keeps its own 17px override below.
+// The 1.8 line-height above only applied to <p>, so list items, headings,
+// and blockquote text (all common in this legal-document content) kept the
+// theme's tighter default — reading noticeably denser than the WordPress
+// version the user is matching against. Match line-height everywhere in
+// the article body.
+article :is(h1, h2, h3, h4, h5, h6, li, blockquote) {
+  line-height: 1.8;
+}
+
+// Font only here — desktop size is set below; mobile hides the title text
+// entirely and shows only the logo (see the mobile media query below).
 .page-title,
 .page-title > a {
   font-family: #{$pretendardStack} !important;
@@ -96,6 +103,52 @@ article p {
 }
 
 // put your custom CSS here!
+
+// Italic and bold text in the article body render in the same color, so
+// emphasis (`*text*`) is indistinguishable from strong (`**text**`) at a
+// glance. Give italics a green so the two are visually distinct. Can't use
+// var(--tertiary) here — the "things" theme repurposes that custom property
+// for its own accent system (redefines it to a blue HSL value), so it no
+// longer matches the green set in quartz.config.yaml. Hardcode that same
+// green directly instead. The theme's own `html[saved-theme] em { color:
+// var(--em-color) }` lives inside a named @layer, so this plain unlayered
+// !important rule already wins against it.
+// One hex can't serve both modes: quartz.config.yaml's tertiary (#84a59d)
+// reads well on the dark background (~6.8:1) but drops to ~2.5:1 on the
+// light background (#faf8f8) — below the 4.5:1 readable-text threshold, and
+// no single color clears 4.5:1 against both since the two backgrounds sit
+// at opposite luminance extremes. Split by `html[saved-theme]`, same
+// attribute the theme itself keys off, so each mode gets a shade that's
+// actually legible on its own background.
+html[saved-theme="dark"] article em,
+html[saved-theme="dark"] article i {
+  color: #84a59d !important;
+}
+
+html[saved-theme="light"] article em,
+html[saved-theme="light"] article i {
+  color: #4e746b !important;
+}
+
+// The "things" theme wraps each frontmatter tag (`ul.tags > li`) in its own
+// pill: a dark green background + 28px corner radius on the <li> itself,
+// separate from the tag <a>'s own smaller yellow-highlight pill. When tags
+// wrap onto multiple lines, that outer green pill's rounded corners repeat
+// on every line and the whole thing turns into a hard-to-read blob. Strip
+// the outer pill's color entirely and let the inner tag link's own
+// highlight pill (already legible on its own) be the only visible pill.
+ul.tags > li {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+
+// Blockquotes (statute/약관 citations use `>` a lot in this content) sit
+// with text almost touching the left border at the base 1rem padding —
+// add breathing room per user request (15px felt like too much, dialed
+// back to 10px).
+blockquote {
+  padding-left: calc(1rem + 10px);
+}
 
 // The "things" theme (quartz-themes plugin) ships an unscoped
 // `ul > li { padding-left: 0 }` reset that isn't wrapped in an @layer.
@@ -135,6 +188,24 @@ article p {
   // their parent H2.
   li:not(.depth-0) > a {
     color: var(--gray) !important;
+  }
+}
+
+// The explorer (카테고리) plugin collapses itself the same way the base TOC
+// plugin does: squeezing `.explorer` down to a fixed `flex: 0 1.2rem` and
+// relying on `overflow-y: hidden` to hide the folder list below the header
+// button. That 1.2rem assumes the header button's line height stays under
+// it, but Pretendard's rendered line height for the "카테고리" label is
+// slightly taller, so the button text itself gets clipped along the bottom
+// when collapsed. Same fix as the TOC: hide the folder list directly and
+// let the header box size itself naturally instead of relying on a fixed
+// clip height.
+.explorer.collapsed {
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+
+  > .explorer-content {
+    display: none;
   }
 }
 
