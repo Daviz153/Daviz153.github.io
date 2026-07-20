@@ -1,5 +1,5 @@
 {
-  "name": "ad-banner-top",
+  "name": "ad-banner-footer",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,9 +9,9 @@
     "./components": "./dist/components/index.js"
   },
   "quartz": {
-    "name": "ad-banner-top",
-    "displayName": "Ad Banner Top",
-    "description": "House ad banner rendered above the breadcrumb, at the very top of the page.",
+    "name": "ad-banner-footer",
+    "displayName": "Ad Banner Footer",
+    "description": "Reserved ad slot at the bottom of the article body, directly above the site footer bar.",
     "category": "component",
     "version": "0.1.0",
     "quartzVersion": ">=5.0.0",
@@ -19,10 +19,10 @@
     "defaultEnabled": true,
     "defaultOptions": {},
     "components": {
-      "AdBannerTop": {
-        "displayName": "Ad Banner Top",
-        "defaultPosition": "beforeBody",
-        "defaultPriority": 1
+      "AdBannerFooter": {
+        "displayName": "Ad Banner Footer",
+        "defaultPosition": "afterBody",
+        "defaultPriority": 10
       }
     }
   }

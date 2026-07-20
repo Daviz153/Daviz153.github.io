@@ -142,6 +142,138 @@ ul.tags > li {
   border-radius: 0 !important;
 }
 
+// note-properties' `.note-properties-tags` is `display: inline-flex`, but
+// its children are a mix of `.tag-link` pills and plain `, ` separator
+// spans with no explicit height. Flex's default `align-items: stretch`
+// stretches every child (pills and separators alike) to the row's cross
+// size, so each pill's yellow background grows/shrinks per row instead of
+// hugging its own text — the pills look vertically misaligned against the
+// commas next to them. Center everything on its own line box instead so
+// each pill sizes to its own content.
+.note-properties-tags {
+  align-items: center;
+
+  // The theme's own `.note-properties-tags` is `inline-flex` with no
+  // `flex-wrap`, and flex items default to `flex-shrink: 1` — so when the
+  // tags don't all fit on one line (narrow mobile column + several/long
+  // tags), the browser doesn't wrap the row, it squeezes each pill narrower
+  // than its own text. Since CJK text can break between any two characters,
+  // a squeezed pill just wraps its Korean internally, one syllable per line
+  // ("#요/양/급/여"), which reads as a "찌그러진" pill. Let the row wrap
+  // instead, and stop pills from shrinking below their content so the text
+  // itself never breaks.
+  flex-wrap: wrap;
+  row-gap: 0.3rem;
+
+  .tag-link {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+// The "things" theme hardcodes its own page-width value as a "reader-mode
+// workaround": at >=1200px it sets `.page` itself to `max-width: 100dvw`
+// (unbounded) and instead caps the actual visible width on `#quartz-body`
+// directly, via a high-specificity `div#quartz-root.page div#quartz-body`
+// selector — `#quartz-body { max-width: min(100%, calc(1200px + 300px)) }`,
+// i.e. hardcoded to 1500px. That's the *real* container cap on desktop;
+// changing `.page`'s max-width in base.scss (quartz's own variable-driven
+// value) has no visible effect once this theme is active, since the theme's
+// rule wins by ID-selector specificity. Match the same selector here to
+// override it: 300px -> 198px narrows the desktop container from 1500px to
+// 1398px, so that with the theme's own `.center`/`footer` padding (1.5rem =
+// 24px each side, set right below this same theme block) the actual article
+// text lands at exactly 700px (1398 - 320*2 sidebars - 10px gaps - 48px
+// padding = 700).
+@media all and (min-width: 1200px) {
+  div#quartz-root.page div#quartz-body {
+    width: min(100%, calc(1200px + 198px)) !important;
+    max-width: min(100%, calc(1200px + 198px)) !important;
+  }
+}
+
+// folder-page's listing grid (`fit-content(8em) 3fr 1fr` = date/title/tags)
+// caps the date column at 8em (128px), minus the date's own 1em right
+// margin = 112px of usable text width. A full Korean date like "2026년 7월
+// 16일" needs ~114px, so it was wrapping to 2 lines by a 2px margin (this
+// got worse once the article column narrowed to 700px, since 3fr/1fr are
+// relative to the shrunk container, not because the date column itself
+// changed size — it didn't, 8em is a fixed unit). Widen the cap by 1em so
+// the longest realistic date (two-digit month + day) clears it with room
+// to spare, and force nowrap so a future overflow truncates awkwardly
+// rather than silently wrapping again.
+li.section-li > .section {
+  grid-template-columns: fit-content(9em) 3fr 1fr !important;
+  // No gap was set between columns at all, so the tags column's pills sat
+  // flush against the title text with zero breathing room. 1.25rem reads
+  // clearly as a column gap without eating much into the 700px budget.
+  column-gap: 1.25rem;
+
+  .meta {
+    white-space: nowrap;
+  }
+}
+
+// folder-page renders tags as a bare `<ul class="tags"><li><a
+// class="tag-link">` list with no flex/wrap styling, so every tag lands on
+// its own line (block `<li>`s stacked vertically) instead of flowing next
+// to each other. With 4+ tags this makes the tags column many lines tall,
+// so a row's grid track stretches to match it and the date/title of that
+// row (and the next row down) end up visually "unaligned" against each
+// other — this was always happening, the 700px narrowing just made it more
+// noticeable since less exists to distract from it. Flow tags inline
+// within their column instead so row height tracks the title, not the tag
+// count.
+li.section-li > .section > .tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0.3em 0.4em;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+
+  > li {
+    list-style: none;
+  }
+}
+
+// The tags column is only ~1/7 of the 700px article (~130-145px). At the
+// list's original 16px, a longer tag (e.g. "인슐린자동주입기", ~123px
+// including pill padding) didn't clear that column width, so instead of
+// wrapping to a new pill it broke mid-word onto a second line *inside the
+// same pill* — a much worse look than the row-height issue this was
+// supposed to fix. Shrinking the tag text to 14px drops that same tag to
+// ~110px, comfortably inside the column at every width this list renders
+// at (mobile-hidden below 600px, narrower tablet widths above that, and
+// the 700px desktop width), and nowrap turns any future edge case into a
+// clean overflow instead of a silent mid-word break.
+li.section-li > .section > .tags .tag-link {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+// folder-page list item titles render at font-weight 600 (h3 default is
+// 700/bold; this theme already steps it down once) — still reads too heavy
+// at this size per user feedback. Step down one more notch to a mid-weight
+// that's still clearly a heading but lighter than semibold. Size also
+// dialed back from ~21px to 19px per user request — reads less dominant
+// next to the now-smaller tag pills.
+li.section-li > .section > .desc > h3 > a {
+  font-weight: 500 !important;
+  font-size: 19px !important;
+}
+
+// The date/title/tags grid cells themselves all start at the same top
+// edge, but `<h3>` carries its own default 16px top margin, so the title
+// *text* renders ~16px lower than the date text next to it even though
+// their cells are perfectly aligned — the row looked "unaligned" because
+// of this inner margin, not the grid. Zero it out so both start flush at
+// the top of the row.
+li.section-li > .section > .desc > h3 {
+  margin-top: 0;
+}
+
 // Blockquotes (statute/약관 citations use `>` a lot in this content) sit
 // with text almost touching the left border at the base 1rem padding —
 // add breathing room per user request (15px felt like too much, dialed
@@ -263,3 +395,24 @@ blockquote {
     }
   }
 }
+
+// Below the 1200px breakpoint the right sidebar (TOC/ad-banner-sidebar/
+// backlinks) collapses out of its column and stacks into the normal
+// document flow, landing right above the afterBody footer ad — so mobile
+// visitors saw two ad placeholders back-to-back right before the real
+// Footer bar. Hide the sidebar ad slot below that breakpoint so mobile
+// keeps just the one footer ad.
+@media all and (max-width: 1199px) {
+  .ad-banner-sidebar {
+    display: none !important;
+  }
+}
+
+// Tried `overflow-x: hidden` on <body> here to chase a mobile Safari
+// horizontal-shift bug, but a live DOM scan found no actual overflowing
+// element (scrollWidth == innerWidth, scrollLeft always 0) — it never fixed
+// that bug. Worse, `overflow-x` on any ancestor of a `position: sticky`
+// element breaks the sticky behavior for that element (setting overflow on
+// just one axis computes the other axis to non-visible too, per spec), and
+// `.sidebar.right` (the TOC) is `position: sticky` in base.scss — so this
+// was silently unpinning the TOC from scroll. Reverted.

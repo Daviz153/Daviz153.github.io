@@ -1,5 +1,5 @@
 {
-  "name": "ad-banner-top",
+  "name": "feedback-widget",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,19 +9,19 @@
     "./components": "./dist/components/index.js"
   },
   "quartz": {
-    "name": "ad-banner-top",
-    "displayName": "Ad Banner Top",
-    "description": "House ad banner rendered above the breadcrumb, at the very top of the page.",
+    "name": "feedback-widget",
+    "displayName": "Feedback Widget",
+    "description": "Floating bottom-right button that opens a reaction (👍/👎) + optional message feedback form, submitted to a webhook.",
     "category": "component",
     "version": "0.1.0",
     "quartzVersion": ">=5.0.0",
-    "defaultOrder": 96,
+    "defaultOrder": 97,
     "defaultEnabled": true,
     "defaultOptions": {},
     "components": {
-      "AdBannerTop": {
-        "displayName": "Ad Banner Top",
-        "defaultPosition": "beforeBody",
+      "FeedbackWidget": {
+        "displayName": "Feedback Widget",
+        "defaultPosition": "afterBody",
         "defaultPriority": 1
       }
     }

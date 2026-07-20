@@ -160,7 +160,11 @@ a {
 }
 
 .page {
-  max-width: calc(#{map.get($breakpoints, desktop)} + 300px);
+  // Sidebars stay at $sidePanelWidth (320px each); this constant is tuned
+  // so the center grid track, minus .center's 24px side padding, lands the
+  // pure article content at 700px: 320+320 sidebars + 10px gaps + 748px
+  // track (700 + 24*2 padding) = 1398px.
+  max-width: calc(#{map.get($breakpoints, desktop)} + 198px);
   margin: 0 auto;
   & article {
     & > h1 {

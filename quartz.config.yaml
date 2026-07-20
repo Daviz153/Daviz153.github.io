@@ -157,6 +157,12 @@ plugins:
       display: all
     options:
       title: 카테고리
+      # Explorer has no built-in item-count display. Its mapFn option is
+      # sent to the client as source text and rebuilt there via `new
+      # Function(...)`, so a plain string works here same as a real JS
+      # function would in a .ts config — append each folder's direct
+      # child count (files + subfolders) to its displayed name.
+      mapFn: "(node) => { if (node.isFolder && node.displayName) { node.displayName = node.displayName + ' (' + (node.children ? node.children.length : 0) + ')'; } }"
   - source: github:quartz-community/graph
     enabled: false
     layout:
@@ -215,6 +221,19 @@ plugins:
     layout:
       position: beforeBody
       priority: 1
+      condition: not-index
+  - source: ./plugins-local/feedback-widget
+    enabled: true
+    options: {}
+    layout:
+      position: afterBody
+      priority: 1
+  - source: ./plugins-local/ad-banner-footer
+    enabled: true
+    options: {}
+    layout:
+      position: afterBody
+      priority: 10
       condition: not-index
   - source: github:quartz-community/breadcrumbs
     enabled: true
