@@ -54,10 +54,21 @@ article p {
   font-family: #{$pretendardStack} !important;
   font-size: 18px !important;
   line-height: 1.8 !important;
-  // Tried text-align: justify to close up the ragged right edge, but the
-  // user found the resulting word-spacing looked worse than the normal
-  // ragged-right wrap — reverted. Ragged-right is expected/normal behavior
-  // here, not a bug.
+  // Ragged-right edges on Korean text are inherent to word-break: keep-all
+  // (no native Korean hyphenation exists in CSS/browsers) — not a Quartz or
+  // theme bug; the official Quartz demo site shows the same behavior.
+  // Two alternatives were tried and rejected (2026-07-21):
+  //  - text-align: justify (+ text-justify: inter-word): keep-all leaves few
+  //    space characters per line, so justify dumps all slack into those few
+  //    gaps -> visually worse, oversized word-spacing.
+  //  - word-break: normal: fills the line evenly at any width (this is what
+  //    the user's Discourse reference actually uses — confirmed by a
+  //    mid-word split visible in that screenshot), but splits words at
+  //    arbitrary syllable boundaries. Rejected: target readers are mostly
+  //    insurance agents 40+, where readability matters more than a tidy
+  //    right edge, and split words hurt readability more than they help.
+  // Decision: keep keep-all as-is; ragged-right is accepted, not a bug to
+  // keep chasing.
   word-break: keep-all;
 }
 
@@ -189,6 +200,35 @@ ul.tags > li {
   div#quartz-root.page div#quartz-body {
     width: min(100%, calc(1200px + 198px)) !important;
     max-width: min(100%, calc(1200px + 198px)) !important;
+  }
+
+  // The theme also sets `min-width: 100dvw` on `.page` itself (alongside the
+  // `max-width: 100dvw` above). `dvw` includes the vertical scrollbar's
+  // width, so on any page tall enough to scroll, `.page` ends up a few px
+  // wider than the actually-visible viewport (`document.documentElement.
+  // clientWidth`). Since `.page` also has `justify-items: center` for
+  // `#quartz-body`, centering happens against that too-wide box instead of
+  // the real visible area — the whole article silently sits a few px off
+  // true center on every scrollable page. `100%` here resolves against
+  // `.page`'s actual containing block (`body`), which is not scrollbar-
+  // inflated, so this restores correct centering without touching
+  // `overflow-x` (`html { overflow-x: hidden }` in base.scss is load-bearing
+  // for other rules — do not "fix" this by hiding overflow on an ancestor of
+  // the sticky TOC sidebar again).
+  div#quartz-root.page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  // Same scrollbar-inflation issue exists one level up: base.scss sets
+  // `html { width: 100vw }`, so `html` itself is wider than the true
+  // visible viewport whenever a vertical scrollbar is shown. Overridden
+  // here (rather than edited in base.scss directly) to keep theme/core
+  // overrides centralized in this file. `overflow-x: hidden` on `html` is
+  // left untouched.
+  html {
+    width: 100% !important;
   }
 }
 
@@ -354,6 +394,15 @@ blockquote {
 .toc:has(button.toc-header.collapsed) {
   flex: 0 0 auto !important;
   overflow: visible !important;
+}
+
+// `.toc-header`'s <h3>목차</h3> carries the browser/theme's default heading
+// margin (16px top), which the sidebar layout never resets. Every other
+// top-of-sidebar element (site title link, ad banner) uses a non-heading
+// tag with zero margin, so the TOC label alone sat ~16px lower than its
+// neighbors despite all three containers sharing the same top offset.
+.toc-header h3 {
+  margin: 0;
 }
 
 // The "things" theme (quartz-themes plugin, templateCSS.ts) explicitly sets
