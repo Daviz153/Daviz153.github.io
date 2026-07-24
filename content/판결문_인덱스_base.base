@@ -1,0 +1,30 @@
+views:
+  - type: table
+    name: 표보기
+    filters:
+      and:
+        - file.inFolder("10_Projects/11_보험설계사Wiki/116_판결문")
+        - '!file.name.contains("_")'
+    order:
+      - file.name
+      - file.ctime
+      - tags
+      - modified
+    sort:
+      - property: file.ctime
+        direction: ASC
+    columnSize:
+      file.name: 459
+  - type: cards
+    name: 갤러리
+    filters:
+      and:
+        - file.inFolder("10_Projects/11_보험설계사Wiki/116_판결문")
+    order:
+      - file.name
+      - modified
+      - tags
+      - file.backlinks
+    indentProperties: true
+    markers: number
+    cardSize: 420
